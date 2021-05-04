@@ -71,6 +71,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateUI();
+        loadBalance();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+        loadBalance();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        updateUI();
+        saveBalance();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        updateUI();
+    }
+
+    @Override
     public void onClick(View v) {
         launchDialogAdd();
         updateUI();

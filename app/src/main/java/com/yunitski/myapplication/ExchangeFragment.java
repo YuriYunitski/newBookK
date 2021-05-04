@@ -44,6 +44,8 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+
+
     @Override
     public void onClick(View v) {
         t1.setText(dollar);
