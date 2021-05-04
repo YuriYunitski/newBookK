@@ -9,5 +9,5 @@
 
     <string name="events">События</string>
     <string name="exchange">Курс валют</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="stat">Статистика</string>
 </resources>

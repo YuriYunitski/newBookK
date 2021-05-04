@@ -6,9 +6,14 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -56,17 +61,62 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fab = view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(this);
         dbHelper = new DBHelper(getContext());
-        outcome = true;
-        income = false;
-        updateUI();
+
+        setHasOptionsMenu(true);
+        registerForContextMenu(balance);
+        registerForContextMenu(recyclerView);
         loadBalance();
+        updateUI();
        return view;
     }
 
     @Override
     public void onClick(View v) {
         launchDialogAdd();
+        updateUI();
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.clean_history) {
+            getActivity().deleteDatabase(InputData.DB_NAME);
+            loadBalance();
+            updateUI();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        switch (v.getId()){
+            case R.id.balance:
+                MenuInflater inflater = getActivity().getMenuInflater();
+                inflater.inflate(R.menu.balance_context_menu, menu);
+                break;
+        }
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()){
+            case R.id.balance_delete:
+                balance.setText("" + 0);
+                saveBalance();
+                updateUI();
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
     private void launchDialogAdd(){
         loadBalance();
@@ -79,6 +129,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         inpValueET = view.findViewById(R.id.input_value);
         radioButtonIn = view.findViewById(R.id.income);
         radioButtonOut = view.findViewById(R.id.outcome);
+        radioButtonOut.setChecked(true);
+        outcome = true;
+        income = false;
         radioGroup = view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -161,12 +214,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         editor.putString("b", balance.getText().toString());
         editor.apply();
     }
-    private void loadBalance(){
+    void loadBalance(){
         sharedPreferences = getActivity().getPreferences(getActivity().MODE_PRIVATE);
         String bb =sharedPreferences.getString("b", "0");
         balance.setText(bb);
     }
-    private void updateUI(){
+    void updateUI(){
         elements = new ArrayList<Element>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(InputData.TaskEntry.TABLE, new String[]{InputData.TaskEntry._ID, InputData.TaskEntry.VALUE, InputData.TaskEntry.TOTAL_VALUE, InputData.TaskEntry.DATE, InputData.TaskEntry.OPERATION}, null, null, null, null, null);

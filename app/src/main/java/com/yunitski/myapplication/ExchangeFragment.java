@@ -23,7 +23,7 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
     private Thread secThread;
     private Runnable runnable;
     private String dollar, euro, belRub, pound;
-    TextView t1, t2;
+    TextView t1, t2, t3, t4;
     Button button;
 
 
@@ -32,8 +32,12 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_exchange, container, false);
         t1 = view.findViewById(R.id.dollar);
         t2 = view.findViewById(R.id.euro);
+        t3 = view.findViewById(R.id.bel_rub);
+        t4 = view.findViewById(R.id.phound);
         t1.setText("Доллар США");
         t2.setText("Евро");
+        t3.setText("Белорусский рубль");
+        t4.setText("Фунт стерлингов Соединенного королевства");
         button = view.findViewById(R.id.button);
         button.setOnClickListener(this);
         init();
@@ -44,6 +48,8 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         t1.setText(dollar);
         t2.setText(euro);
+        t3.setText(belRub);
+        t4.setText(pound);
     }
 
     private void init(){
@@ -80,10 +86,10 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
             String[] st4 = s4.split("<td>");
             String[] name4 = st4[4].split("<");
             String[] value4 = st4[5].split("<");
-            dollar = name[0] + " " + value[0];
-            euro = name2[0]  + " " + value2[0];
-            belRub = name3[0] + " " + value3[0];
-            pound = name4[0] + " " + value4[0];
+            dollar = name[0] + " : " + value[0] + "₽";
+            euro = name2[0]  + " : " + value2[0] + "₽";
+            belRub = name3[0] + " : " + value3[0] + "₽";
+            pound = name4[0] + " : " + value4[0] + "₽";
         } catch (IOException e) {
             e.printStackTrace();
         }

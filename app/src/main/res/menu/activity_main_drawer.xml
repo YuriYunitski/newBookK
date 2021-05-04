@@ -13,8 +13,8 @@
             android:icon="@drawable/ic_baseline_attach_money_24"
             android:title="@string/exchange" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_stat"
+            android:icon="@drawable/ic_baseline_auto_graph_24"
+            android:title="@string/stat" />
     </group>
 </menu>

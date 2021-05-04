@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_exchange" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.yunitski.myapplication.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_stat"
+        android:name="com.yunitski.myapplication.StatisticFragment"
+        android:label="@string/stat"
+        tools:layout="@layout/fragment_statistic" />
 </navigation>
