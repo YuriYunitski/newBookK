@@ -1,5 +1,6 @@
 package com.yunitski.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ExchangeFragment extends Fragment implements View.OnClickListener {
 
@@ -45,7 +47,6 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
         t1.setText(dollar);
@@ -53,6 +54,7 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
         t3.setText(belRub);
         t4.setText(pound);
     }
+
 
     private void init(){
         runnable = new Runnable() {
@@ -88,7 +90,7 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
             String[] st4 = s4.split("<td>");
             String[] name4 = st4[4].split("<");
             String[] value4 = st4[5].split("<");
-            dollar = name[0] + " : " + value[0] + "₽";
+            dollar = name[0] + " : " + value[0] + getString(R.string.ruble);
             euro = name2[0]  + " : " + value2[0] + "₽";
             belRub = name3[0] + " : " + value3[0] + "₽";
             pound = name4[0] + " : " + value4[0] + "₽";
@@ -96,4 +98,5 @@ public class ExchangeFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+
 }

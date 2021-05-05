@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="Очистить историю"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/settings_events"
+        android:orderInCategory="10"
+        android:title="Настройки"
+        app:showAsAction="never"/>
 </menu>

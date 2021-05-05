@@ -2,6 +2,7 @@ package com.yunitski.myapplication;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -117,6 +118,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             getActivity().deleteDatabase(InputData.DB_NAME);
             loadBalance();
             updateUI();
+        } else if (id == R.id.settings_events){
+            startActivity(new Intent(getContext(), Settings.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -227,7 +230,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
         updateUI();
         builder.create().show();
+        updateUI();
     }
+
     public String dateC(){
         Calendar c = new GregorianCalendar();
         int y = c.get(Calendar.YEAR);

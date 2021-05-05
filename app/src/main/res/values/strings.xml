@@ -10,4 +10,7 @@
     <string name="events">События</string>
     <string name="exchange">Курс валют</string>
     <string name="stat">Статистика</string>
+    <string name="ruble">₽</string>
+    <string name="euro">€</string>
+    <string name="dollar">$</string>
 </resources>
